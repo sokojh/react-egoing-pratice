@@ -1,8 +1,9 @@
-function HeaderTag() {
+function HeaderTag(props) {
+  console.log("props:", props.title, props);
   return (
     <header>
       <h1>
-        <a href="/">WWWdhdh?WW</a>
+        <a href="/">{props.title}WWWdhdh?WW</a>
       </h1>
     </header>
   );

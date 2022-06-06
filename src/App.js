@@ -2,20 +2,18 @@ import logo from "./logo.svg";
 import "./App.css";
 import { HeaderTag } from "./header";
 
-function NavTag() {
+function NavTag(props) {
+  console.log(props.data);
+  const list = props.data.map((e) => {
+    return (
+      <li key={e.id}>
+        <a href={"/read/" + e.id}>{e.title}</a>
+      </li>
+    );
+  });
   return (
     <nav>
-      <ol>
-        <li>
-          <a href="/read/1">html</a>
-        </li>
-        <li>
-          <a href="/read/2">css</a>
-        </li>
-        <li>
-          <a href="/read/3">JavaScript</a>
-        </li>
-      </ol>
+      <ol>{list}</ol>
     </nav>
   );
 }
@@ -28,10 +26,14 @@ function ArticleTag() {
   );
 }
 function App() {
+  const topics = [
+    { id: 1, title: "html", body: "html is..." },
+    { id: 2, title: "css", body: "css is..." },
+  ];
   return (
     <div className="App">
-      <HeaderTag></HeaderTag>
-      <NavTag></NavTag>
+      <HeaderTag title="Welcome" body="Hello, Web"></HeaderTag>
+      <NavTag data={topics}></NavTag>
       <ArticleTag></ArticleTag>
     </div>
   );
