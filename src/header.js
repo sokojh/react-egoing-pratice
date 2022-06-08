@@ -3,8 +3,17 @@ function HeaderTag(props) {
   return (
     <header>
       <h1>
-        <a href="/">{props.title}WWWdhdh?WW</a>
+        <a
+          href="/"
+          onClick={(evt) => {
+            evt.preventDefault();
+            props.onSelect(evt.id);
+          }}
+        >
+          {props.title}WWWdhdh?WW
+        </a>
       </h1>
+      <p>{props.body}</p>
     </header>
   );
 }
