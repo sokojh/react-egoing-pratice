@@ -3,6 +3,7 @@ import "./App.css";
 import { HeaderTag } from "./header";
 import BasicButtons from "./muistyle";
 import { useState } from "react";
+import { Create } from "./Create";
 
 function NavTag(props) {
   const list = props.data.map((e) => {
@@ -34,19 +35,20 @@ function ArticleTag(props) {
     </article>
   );
 }
+
 function App() {
   let [mode, setMode] = useState("WELCOME");
   const [id, setId] = useState("null");
-  console.log("mode:", mode);
-  console.log("id:", id);
-  const topics = [
+  const [nextId, setNextId] = useState(6);
+  const [topics, setTopics] = useState([
     { id: 1, title: "html", body: "html is..." },
     { id: 2, title: "css", body: "css is..." },
     { id: 3, title: "javascript", body: "Javascript is..." },
     { id: 4, title: "list", body: "list is..." },
     { id: 5, title: "abb", body: "abb is..." },
-  ];
-  let content = <ArticleTag></ArticleTag>;
+  ]);
+
+  let content = null;
   if (mode === "WELCOME") {
     content = <ArticleTag title="Welcome" body="Hello, WEB!"></ArticleTag>;
   } else if (mode === "READ") {
@@ -58,13 +60,27 @@ function App() {
       }
     })[0];
     content = <ArticleTag title={topic.title} body={topic.body}></ArticleTag>;
+  } else if (mode === "CREATE") {
+    content = (
+      <Create
+        onCreate={(title, body) => {
+          const newTopic = { id: nextId, title, body };
+          let newTopics = [...topics];
+          newTopics.push(newTopic);
+          setTopics(newTopics);
+          setMode("READ");
+          setId(nextId);
+          setNextId(nextId + 1);
+        }}
+      ></Create>
+    );
   }
 
   return (
     <div className="App">
       <HeaderTag
         onSelect={(id) => {
-          setMode("WELCOME");
+          setMode("CREATE");
           setId(id);
         }}
         title="Welcome"

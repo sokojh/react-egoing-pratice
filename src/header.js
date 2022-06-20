@@ -1,7 +1,12 @@
 function HeaderTag(props) {
   console.log("props:", props.title, props);
+  const mystyle = {
+    borderBottom: "1px solid gray",
+    padding: "10px",
+    color: "red",
+  };
   return (
-    <header>
+    <header className={props.className}>
       <h1>
         <a
           href="/"
